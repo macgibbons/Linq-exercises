@@ -141,6 +141,40 @@ namespace linq
                 21.76
             };
             var MostExpensive = prices.Max ();
+
+            List<int> wheresSquaredo = new List<int> ()
+            {
+                66,
+                12,
+                8,
+                27,
+                82,
+                34,
+                7,
+                50,
+                19,
+                46,
+                81,
+                23,
+                30,
+                4,
+                68,
+                14
+            };
+            /*
+                Store each number in the following List until a perfect square
+                is detected.
+
+                Expected output is { 66, 12, 8, 27, 82, 34, 7, 50, 19, 46 } 
+
+                Ref: https://msdn.microsoft.com/en-us/library/system.math.sqrt(v=vs.110).aspx
+            */
+
+            var squareNumbers = wheresSquaredo.TakeWhile (number =>
+            {
+                return number % Math.Sqrt (number) != 0;
+            });
+
         }
     }
 }
