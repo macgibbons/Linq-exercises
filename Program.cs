@@ -174,6 +174,7 @@ namespace linq
             {
                 return number % Math.Sqrt (number) != 0;
             });
+            // Build a collection of customers who are millionaires
 
             List<Customer> customers = new List<Customer> ()
             {
@@ -194,14 +195,33 @@ namespace linq
                 return customer.Balance >= 1000000;
             });
 
-        }
+            /*
+                Given the same customer set, display how many millionaires per bank.
+                Ref: https://stackoverflow.com/questions/7325278/group-by-in-linq
 
-        // Build a collection of customers who are millionaires
-        public class Customer
-        {
-            public string Name { get; set; }
-            public double Balance { get; set; }
-            public string Bank { get; set; }
+                Example Output:
+                WF 2
+                BOA 1
+                FTB 1
+                CITI 1
+            */
+
+            var millionarBanks = millionaires
+                .GroupBy (customer => customer.Bank)
+                .Select (group =>
+                {
+                    return new BankReport
+                    {
+                    BankName = group.Key,
+                    MillionaireCount = group.Count ()
+                    };
+                });
+
+            foreach (var bank in millionarBanks)
+            {
+                Console.WriteLine ($"{bank.BankName}: {bank.MillionaireCount}");
+            }
+
         }
 
     }
